@@ -1,0 +1,38 @@
+%Declare facts
+figure(1, middle(triangle, square)).
+figure(2, middle(circle, triangle)).
+figure(3, middle(square, circle)).
+figure(4, middle(square, square)).
+figure(5, middle(square, triangle)).
+figure(6, middle(triangle, circle)).
+figure(7, middle(circle, square)).
+figure(8, middle(triangle, triangle)).
+figure(9, middle(circle, circle)).
+figure(10, circle(2)).
+figure(11, circle(4)).
+figure(12, middle(square, square)).
+figure(13, square(2)).
+figure(14, square(1)).
+figure(15, square(4)).
+figure(16, square(3)).
+
+%Declare Predicates
+relate(middle(F1, F2), middle(F2, F1), invert).
+relate(middle(F1, F2), middle(F1, F1), firstMiddleIsSecond).
+relate(middle(F1, F1), middle(F2, F2), identical).
+
+relate(circle(X), square(X), notIdentSameQuad).
+relate(square(X), circle(X), notIdentSameQuad).
+
+relate(circle(X), square(Y), notIdentOppQuad).
+relate(square(X), circle(Y), notIdentOppQuad).
+
+relate(circle(X), circle(X), identSameQuad).
+relate(square(X), square(X), identSameQuad).
+
+relate(circle(X), circle(Y), identOppQuad).
+relate(square(X), square(Y), identOppQuad).
+
+%Define main predicate
+analogy(A, B, C, X):-
+	figure(A, P1), figure(B, P2), relate(P1, P2, R), figure(C, P3), relate(P3, P4, R), figure(X, P4).

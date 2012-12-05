@@ -1,0 +1,39 @@
+%Defina variable
+:- dynamic State/3.
+
+%Define predicates
+p(A, B, C, State):-
+	assert(State(A, B, C)).
+%	write('Monkey at '), write(A),
+%	write(', Banana at '), write(B),
+%	write(', Chair at '), write(C).
+
+walk(X, Y, S):-
+	write('Monkey walks from '),
+	write(S),
+	write(' to '),
+	write(read(S)),
+	write(', '),
+	p(c, b, c, S).
+
+push(X, Y, S):-
+	walk(X, Y, S),
+	write('Monkey pushes chair from '),
+	write(S(_,_,X)),
+	write(' to '),
+	write(S(_,Y,_)),
+	write(', '),
+	p(b, b, b, S).
+
+climb(S):-
+	push(X, Y, s),
+	write('Monkey climbs chair, ').
+
+reach(grasp(climb(S))):-
+	climb(S),
+	write('Monkey grasps banana.').
+
+reach(X):-
+%	reach(grasp(climb(push(C, B, walk(a, c, X))))).
+	p(a, b, c, S),
+	reach(grasp(climb(S))).
